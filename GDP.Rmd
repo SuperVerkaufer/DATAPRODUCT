@@ -1,0 +1,66 @@
+---
+title: "GDP"
+author: "ng"
+date: "June 8, 2019"
+output:
+  html_document: default
+---
+## Overview
+
+This is an RStudio shiny application developed as a part of final project in the Developing Data Products course. The app compares critical economic and internet performance indicators across 4 dimensions. 
+
+The countries have been selected on the basis of representation across Europe and Asia and the app enab les a quick comparative analysis
+
+## The Application includes the following:
+
+- Form of Input used: Radio Button
+- Reactive output displayed as a result of server calculations: The user (analyst) can select one or more dimensions to compare performance 
+- The server.R and ui.R codes are posted on github at: <https://github.com/MDKinney29077/DevelopingDataProducts>
+
+
+```{r LoadPackages, include = FALSE}    
+library(readxl)
+```
+
+## R Code for the Application
+
+```{r, echo = TRUE, warning=FALSE}
+library(shiny)
+
+# Define UI for application that draws a histogram
+Perform <- read_excel("C:/Users/spencer.ng/Desktop/TH training/R Code Training MMM/Data products/GDPcountry.xlsx")
+
+ui <- fluidPage(
+  checkboxGroupInput("variable", "Variables:",
+                     c("Population (K)" = "pop (K)",
+                       "GDP (Bil)" = "IMFGDP (B)",
+                       "Internet Population (Mil)" = "InternetPop (M)",
+                       "Per Capita GDP" = "GdpPerCapita")),
+  tableOutput("data")
+)
+# Application title
+titlePanel("GDP Comparison")
+
+
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+  output$data <- renderTable({
+    Perform[, c("country", input$variable), drop = FALSE]
+  }, rownames = TRUE)
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+
+```
+
+## Table of Data 
+
+```{r, echo=FALSE, warning=FALSE}
+Perform <- read_excel("C:/Users/spencer.ng/Desktop/TH training/R Code Training MMM/Data products/GDPcountry.xlsx")
+Perform
+```
+
+This is the table of data that was used for this application.
