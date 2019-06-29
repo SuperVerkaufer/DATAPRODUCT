@@ -1,8 +1,12 @@
+#install.packages("readxl")
+library(readxl)
 library(shiny)
-install.packages("readxl")
+
+
 
 # Define UI for application that draws a histogram
-Perform <- read_excel("C:/Users/spencer.ng/Desktop/TH training/R Code Training MMM/Data products/GDPcountry.xlsx")
+#Perform <- read_excel("C:/Users/spencer.ng/Desktop/TH training/R Code Training MMM/Data products/ASSIGNMENT/GDPcountry.xlsx")
+Perform <- read_excel("./GDPcountry.xlsx")
 
 ui <- fluidPage(
   checkboxGroupInput("variable", "Variables:",
@@ -14,7 +18,7 @@ ui <- fluidPage(
 )
 
 # Application title
-titlePanel("GDP Comparison")
+titlePanel("GDP Comparison. Click on parameter to view economic indicator by country")
 
 
 
@@ -25,5 +29,5 @@ server <- function(input, output) {
   }, rownames = TRUE)
 }
 
-# Run the application 
+#shinyApp(ui = ui, server = server)
 shinyApp(ui = ui, server = server)
