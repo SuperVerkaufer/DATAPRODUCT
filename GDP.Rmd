@@ -1,7 +1,7 @@
 ---
-title: "GDP"
+title: "Economic Indicator comparison"
 author: "ng"
-date: "June 8, 2019"
+date: "June 28, 2019"
 output:
   html_document: default
 ---
@@ -27,7 +27,7 @@ library(readxl)
 ```{r, echo = TRUE, warning=FALSE}
 library(shiny)
 
-# Define UI for application that draws a histogram
+# Define UI for application that creates the radio buttons for selection of economic indcators
 Perform <- read_excel("C:/Users/spencer.ng/Desktop/TH training/R Code Training MMM/Data products/GDPcountry.xlsx")
 
 ui <- fluidPage(
@@ -43,7 +43,7 @@ titlePanel("GDP Comparison")
 
 
 
-# Define server logic required to draw a histogram
+# Define server logic required render the data table
 server <- function(input, output) {
   output$data <- renderTable({
     Perform[, c("country", input$variable), drop = FALSE]
@@ -56,11 +56,3 @@ shinyApp(ui = ui, server = server)
 
 ```
 
-## Table of Data 
-
-```{r, echo=FALSE, warning=FALSE}
-Perform <- read_excel("C:/Users/spencer.ng/Desktop/TH training/R Code Training MMM/Data products/GDPcountry.xlsx")
-Perform
-```
-
-This is the table of data that was used for this application.
